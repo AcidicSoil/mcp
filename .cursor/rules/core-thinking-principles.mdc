@@ -1,0 +1,60 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+---
+description:
+globs:
+alwaysApply: true
+---
+# Core Thinking Principles
+
+These principles guide all operations across modes:
+
+**Employ Foundational Reasoning Approaches**:
+  - **Decomposition**: Break down complex problems into smaller, manageable subproblems.
+  - **Systems Thinking**: Understand how different parts of the project (code, infrastructure, user experience) interconnect and influence each other. Consider the broader impact of changes.
+  - **First-Principles Thinking**: Deconstruct problems to their fundamental truths, rather than relying on assumptions or analogies. Useful for innovative solutions.
+  - **Incremental/Iterative Reasoning**: Approach development and problem-solving in small, testable steps. Build, measure, learn.
+  - **Constraint-Driven Reasoning**: Use project constraints (time, budget, technology, performance) as guiding factors in design and decision-making.
+
+**Utilize Specific Reasoning Modes**:
+  - **Deductive**: For logical inference, deriving specific conclusions from general principles, and algorithm design.
+  - **Analogical**: For pattern reuse, applying solutions from similar past problems to new contexts.
+  - **Exploratory**: For discovery of new approaches, open-ended investigation, and hypothesis generation.
+  - **Procedural**: For implementation of known algorithms and following established step-by-step processes.
+  - **Contrastive**: For evaluating alternative solutions by comparing their pros, cons, and trade-offs.
+  - **Skeptical**: For testing assumptions, identifying edge cases, and critically evaluating claims or solutions.
+  - **Abductive**: For forming the most plausible hypothesis to explain observations, especially useful in debugging or initial research when information is incomplete.
+
+- **Challenge Overengineering and Premature Abstractions**:
+  - By questioning the immediate need for a complex solution if a simpler one suffices (YAGNI - You Ain't Gonna Need It).
+  - By proposing simpler alternatives first and justifying any added complexity.
+  - Evaluate if an abstraction genuinely simplifies or if it adds unnecessary layers.
+- **Pattern Recognition and Generalization**:
+  - Detect repetition in problems or solutions (DRY - Don't Repeat Yourself).
+  - Avoid premature generalization: Generalize only when a pattern is well-understood and proven across multiple contexts, ensuring the abstraction provides clear benefits.
+
+**Note on Reasoning Principles and RIPER Modes**:
+  - **RESEARCH**: Emphasize `Exploratory`, `Skeptical`, `Abductive`, and `Systems Thinking`.
+  - **INNOVATE**: Emphasize `Exploratory`, `Analogical`, `Contrastive`, `First-Principles Thinking`.
+  - **PLAN**: Emphasize `Deductive`, `Procedural`, `Skeptical`, `Decomposition`, `Constraint-Driven Reasoning`.
+  - **EXECUTE**: Emphasize `Procedural` reasoning, adhering strictly to the plan, `Incremental/Iterative Reasoning`.
+  - **REVIEW**: Emphasize `Skeptical`, `Contrastive`, `Systems Thinking`.
+
+**Contradiction Resolution**:
+- When facing ambiguity or contradictions:
+  1. Identify the exact nature of the contradiction
+  2. Resolve through priority ranking or scope adjustment
+  3. Document the resolution process and reasoning
+  4. Record decisions in `[.cursor/memory/insights.md](mdc:.cursor/memory/insights.md)` (see [project-management-and-setup.mdc](mdc:project-management-and-setup.mdc#persistent-memory-system))
+
+**Simplicity Guidelines**
+- Favor simple solutions over complex ones when they meet requirements
+- Delay abstraction until utility is proven through multiple use cases
+- Introduce abstractions only when they reduce overall complexity
+- Record simplification decisions and their rationales
+
+**See Also**
+- [riper-cognition-workflow.mdc](mdc:.cursor/rules/riper-cognition-workflow.mdc)
