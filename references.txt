@@ -1,0 +1,13 @@
+https://modelcontextprotocol.io/quickstart/client
+
+https://lmstudio.ai/docs/python
+
+https://lmstudio.ai/docs/app/api/tools#community
+
+https://lmstudio.ai/docs/typescript/agent/act
+
+https://qwen.readthedocs.io/en/latest/framework/function_call.html
+
+https://github.com/QwenLM/Qwen-Agent
+
+https://github.com/QwenLM/Qwen3
