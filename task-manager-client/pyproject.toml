@@ -1,15 +1,17 @@
 [project]
-name = "task-manager-server"
+name = "task-manager-client"
 version = "0.1.0"
-description = "Canonical MCP Task Manager Server using Official Python SDK"
-authors = [
-    {name = "MCP Developer"}
-]
+description = "MCP client for task management using LM Studio local LLM"
+readme = "README.md"
+requires-python = ">=3.11"
 dependencies = [
-    "mcp",
-    "pydantic",
+    "fastapi>=0.115.13",
+    "lmstudio>=1.3.1",
+    "mcp>=1.9.4",
+    "pydantic>=2.11.7",
+    "python-dotenv>=1.1.0",
+    "uvicorn>=0.34.3",
 ]
-requires-python = ">=3.10"
 
 [project.optional-dependencies]
 dev = [
@@ -18,20 +20,13 @@ dev = [
     "pytest-asyncio>=0.24.0",
 ]
 
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-[tool.hatch.build.targets.wheel]
-packages = ["."]
-
 [tool.ruff]
 # Same as Black.
 line-length = 120
 indent-width = 4
 
-# Assume Python 3.10+
-target-version = "py310"
+# Assume Python 3.11
+target-version = "py311"
 
 [tool.ruff.lint]
 # Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.
@@ -45,8 +40,6 @@ ignore = [
     "S105", "S106", "S107",
     # Allow print statements (useful for CLI tools)
     "T201",
-    # Avoid conflicts with formatter
-    "COM812",
 ]
 
 [tool.ruff.format]
@@ -63,7 +56,7 @@ skip-magic-trailing-comma = false
 line-ending = "auto"
 
 [tool.ruff.lint.isort]
-known-first-party = ["task_manager_server"]
+known-first-party = ["task_manager_client"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

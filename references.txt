@@ -1,13 +1,46 @@
+# MCP Development References
+
+## 1. Model Context Protocol - Client Quickstart
 https://modelcontextprotocol.io/quickstart/client
 
+A comprehensive tutorial for developers building MCP clients that can integrate with MCP servers. It covers creating an LLM-powered chatbot client using Python and the Anthropic API, with detailed examples of server connection management, query processing, and tool execution. The guide demonstrates how to build clients that can automatically connect to MCP servers and handle tool calls through Claude's API.
+
+## 2. LM Studio Python SDK Documentation
 https://lmstudio.ai/docs/python
 
+Documentation for LM Studio's Python SDK (`lmstudio-python`) that provides APIs for interacting with local LLMs, embedding models, and agentic flows. The SDK supports both a convenience API for interactive use and a scoped resource API for deterministic resource management. Key features include chat capabilities, function calling, autonomous agents, model management, and text embeddings - all running completely locally.
+
+## 3. LM Studio Tool Use & Function Calling
 https://lmstudio.ai/docs/app/api/tools#community
 
+Comprehensive guide to implementing tool use and function calling with LM Studio's OpenAI-compatible REST API. Covers the complete workflow from tool definition to execution, including how LLMs request function calls, how to execute those functions, and how to feed results back to the model. Includes practical examples using models like Qwen2.5-7B-Instruct and demonstrates multi-turn tool interactions.
+
+## 4. LM Studio TypeScript Agent .act() API
 https://lmstudio.ai/docs/typescript/agent/act
 
+Documentation for LM Studio's TypeScript SDK's automatic multi-round tool calling API. The `.act()` method enables LLMs to automatically chain multiple tool calls in "execution rounds" until reaching a final result. Includes practical examples of mathematical operations, file creation tools, and chat loops. Emphasizes model selection guidance, particularly recommending Qwen2.5-7B-Instruct for optimal tool use performance.
+
+## 5. Qwen Function Calling Documentation
 https://qwen.readthedocs.io/en/latest/framework/function_call.html
 
+Detailed technical guide on function calling capabilities in Qwen3 models. Explains the concept of function calling as a protocol for LLM-application interaction, covering the four-step process: function definition, LLM selection, execution instruction, and result feedback. Includes implementation examples using Qwen-Agent and vLLM, plus technical details about Hermes-style tool use templates for maximizing performance.
+
+## 6. Qwen-Agent GitHub Repository
 https://github.com/QwenLM/Qwen-Agent
 
+Agent framework built on Qwen>=3.0 featuring Function Calling, MCP (Model Context Protocol), Code Interpreter, RAG, and Chrome extension capabilities. Serves as the backend for Qwen Chat and provides both atomic components (LLMs, Tools) and high-level Agent classes. Recent updates include Qwen3 tool-call demos, MCP cookbooks, and QwQ-32B tool-call support with parallel, multi-step, and multi-turn capabilities.
+
+## 7. Qwen3 GitHub Repository
 https://github.com/QwenLM/Qwen3
+
+Official repository for Qwen3, the latest generation of large language models from Alibaba Cloud's Qwen team. Features both dense and Mixture-of-Experts (MoE) models with seamless switching between thinking mode (for complex reasoning) and non-thinking mode (for efficient chat). Includes significant improvements in reasoning, human preference alignment, agent capabilities, and support for 100+ languages.
+
+## 8. Model Context Protocol - Server Quickstart
+https://modelcontextprotocol.io/quickstart/server
+
+Tutorial for building MCP servers that can connect to Claude Desktop and other MCP clients. Demonstrates creating a weather server with tools for getting weather alerts and forecasts using the National Weather Service API. Covers the three main MCP capabilities: Resources (file-like data), Tools (callable functions), and Prompts (pre-written templates). Uses Python's FastMCP framework for easy server development.
+
+## 9. Local Model Context Protocol Documentation
+@modelcontextprotocol.txt
+
+Local file reference containing additional information about the Model Context Protocol specific to this project implementation or notes.

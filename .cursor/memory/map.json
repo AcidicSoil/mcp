@@ -1,0 +1,47 @@
+{
+	"api_routes": {
+		"/v1/chat/completions": "task-manager-client/openai_middleware.py",
+		"/": "task-manager-client/openai_middleware.py"
+	},
+	"mcp_tools": {
+		"get-tasks": "task-manager-server/task-manager.py",
+		"add-task": "task-manager-server/task-manager.py",
+		"set-task-status": "task-manager-server/task-manager.py",
+		"get-task": "task-manager-server/task-manager.py",
+		"next-task": "task-manager-server/task-manager.py",
+		"update-task": "task-manager-server/task-manager.py"
+	},
+	"imports": {
+		"fastapi": ["task-manager-client/openai_middleware.py"],
+		"mcp": [
+			"task-manager-server/task-manager.py",
+			"task-manager-client/openai_middleware.py"
+		],
+		"uvicorn": ["task-manager-client/openai_middleware.py"],
+		"sqlite3": ["task-manager-server/tasks_db.py"],
+		"openai": ["task-manager-client/lm_studio_tools.py"]
+	},
+	"components": {
+		"TaskManagerServer": "task-manager-server/task-manager.py",
+		"OpenAIMiddleware": "task-manager-client/openai_middleware.py",
+		"TasksDB": "task-manager-server/tasks_db.py",
+		"LMStudioTools": "task-manager-client/lm_studio_tools.py"
+	},
+	"configuration": {
+		"middleware_port": "1234",
+		"middleware_host": "localhost",
+		"project_management": ".cursor/",
+		"task_backlog": ".cursor/tasks/backlog.md",
+		"project_summary": ".cursor/overview/summary.md"
+	},
+	"next_integration": {
+		"codex_cli_fork": "To be customized for local middleware integration",
+		"target_endpoint": "http://localhost:1234/v1/chat/completions",
+		"required_changes": [
+			"Replace OpenAI API client",
+			"Add context enhancement",
+			"Integrate MCP tools",
+			"Update configuration"
+		]
+	}
+}
