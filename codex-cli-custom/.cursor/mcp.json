@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "task-master-ai": {
+      "command": "npx",
+      "args": ["-y", "--package=task-master-ai", "task-master-ai"],
+      "env": {
+        "ANTHROPIC_API_KEY": "1234",
+        "PERPLEXITY_API_KEY": "1234",
+        "OPENAI_API_KEY": "1234",
+        "GOOGLE_API_KEY": "1234",
+        "XAI_API_KEY": "1234",
+        "OPENROUTER_API_KEY": "1234",
+        "MISTRAL_API_KEY": "1234",
+        "AZURE_OPENAI_API_KEY": "1234",
+        "OLLAMA_API_KEY": "1234",
+        "OLLAMA_BASE_URL": "http://127.0.0.1:1234",
+        "MCP_CLIENT_CAPABILITIES": "{\"supports_function_calling\":true,\"supports_system_prompt\":true,\"supports_tool_use\":true,\"max_tokens\":120000,\"supports_streaming\":true,\"supports_json_mode\":true}"
+      }
+    },
+    "MCP_DOCKER": {
+      "command": "docker",
+      "args": ["mcp", "gateway", "run"],
+      "env": {
+        "LOCALAPPDATA": "C:\\Users\\comfy\\AppData\\Local",
+        "ProgramFiles": "C:\\Program Files"
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+on:
+  push:
+    branches: [my-dev, main, release/**]
+jobs:
+  default:
+    use: universal
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./setup/entry.sh     # same one you call locally

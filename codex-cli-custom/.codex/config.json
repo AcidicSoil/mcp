@@ -1,0 +1,6 @@
+{
+  "model": "osmosis-ai/osmosis-mcp-4b@q4_k_s",
+  "provider": "ollama",
+  "approvalMode": "full-auto",
+  "fullAutoErrorMode": "ignore-and-continue"
+}

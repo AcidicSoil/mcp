@@ -1,0 +1,343 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+---
+description:
+globs:
+alwaysApply: true
+---
+# Project Setup and Management Guidelines
+
+## Project Setup
+
+**Type of Project**: Ensure if is a new blank project or a current with packages, files, and code writed.
+- Use the `/RIPER` to check if the `Project Management Structure` directories and files exists
+- If not, create the whole structure, use the `/RIPER` cicle.
+- If unsure whether the project is new or existing based on file structure, ask the user for confirmation: "Is this a new project setup, or are we working within an existing project?"
+
+**Phase 0: Initialization (First Run Only)**
+- If the `.cursor` directory or its core structure (as defined below) does not exist, this initial phase is triggered.
+- **Goal**: Create the foundational `.cursor` directory and essential management files.
+- **Project Profiles (Optional)**:
+  - **Lightweight Profile**: For small projects or quick tasks. Creates a minimal structure (e.g., `tasks/backlog.md`, `memory/insights.md`, `overview/summary.md`).
+  - **Standard Profile (Default)**: Creates the full structure as defined below (`.cursor/overview/summary.md`, `.cursor/overview/stacks.md`, `.cursor/memory/insights.md`, `.cursor/memory/errors.md`, `.cursor/memory/map.json`, `.cursor/tasks/backlog.md`, etc.).
+  - **Comprehensive Profile**: Standard profile plus any project-specific templates or pre-defined guideline docs.
+- The AI should ask the user if a specific profile is preferred for new projects, defaulting to Standard.
+- **Process**: A simplified Plan-Execute sequence should be used:
+  1. **Plan**: Outline the creation of the directory and the above-mentioned empty files based on the chosen profile.
+  2. **Execute**: Create the directory and files.
+- Upon completion, proceed with the standard `/RIPER` cycle starting from `[MODE: RESEARCH]` for the user's actual request.
+  - *For new (blank) projects*: `[MODE: RESEARCH]` will focus on the user's idea/brief to define the initial scope. The `.cursor` structure (including `summary.md`, `tasks/backlog.md`, etc.) will be populated based on this initial input.
+  - *For existing projects*: `[MODE: RESEARCH]` will analyze the existing codebase to populate/update the `.cursor` structure (e.g., `summary.md`, `map.json`, `stacks.md`). This ensures the management system reflects the current state before any modifications are planned.
+
+**Project Management Structure**:
+```
+.cursor/
+  ├── overview/             # Project Overview
+  │   ├── summary.md        # Project description in details
+  │   └── stacks.md         # Tech stack documentation
+  ├── memory/               # Persistent knowledge
+  │   ├── insights.md       # Key decisions and rationales used to solve tasks
+  │   ├── errors.md         # Error tracking and solutions
+  |   └── map.json          # Dynamic codebase index mapping API routes, key imports, and component definitions to their file locations.
+  ├── docs/                 # Guidelines about the stacks documentations and best pratices
+  |   ├── nodejs.md         # Guidelines to build high-performance, maintainable Node.js applications
+  |   ├── typescript.md     # Guidelines to build high-performance, maintainable Typescript applications
+  |   └── ...               # Others Guidelines
+  └── tasks/                # Task management
+     ├── backlog.md         # All pending tasks
+     └── sprint_{n}/        # Active sprint folders
+         ├── task_{id}.md   # Individual task files
+         └── review.md      # Sprint retrospectives
+
+```
+
+**Language Settings**: All responses are in English unless instructed otherwise.
+
+**Automatic Mode Initiation**: This optimized version supports automatic initiation of all modes without explicit transition commands. Each mode will automatically proceed to the next upon completion.
+
+**Initial Default Mode**:
+*   Default starts in **RESEARCH** mode.
+*   **Exceptions**: If the user's initial request clearly points to a specific phase, you can directly enter the corresponding mode.
+    *   *Example 1*: User provides a detailed step plan and says "Execute this plan" -> Can directly enter `[MODE: PLAN]` (for plan validation first) or `[MODE: EXECUTE]` (if the plan format is standard and execution is explicitly requested).
+    *   *Example 2*: User asks "How to optimize the performance of function X?" -> Start from `[MODE: RESEARCH]`
+    *   *Example 3*: User says "Refactor this messy code" -> Start from `[MODE: RESEARCH]`
+*   **AI Self-Check**: At the beginning, make a quick judgment and declare: "Initial analysis indicates the user request best fits the [MODE_NAME] phase. The protocol will be initiated in [MODE_NAME] mode."
+*   While modes transition automatically upon completion, the user can always interrupt or redirect the workflow at any point using the explicit mode commands (e.g., `/p` to force `[MODE: PLAN]`), as per the [Key Protocol Guidelines](mdc:riper-cognition-workflow.mdc#key-protocol-guidelines).
+
+## To-Do List Management
+- Create a backlog file at `.cursor/tasks/backlog.md` for all identified tasks
+- For each new task:
+  - Add to backlog with an unique sequencial ID, priority [`LOW`, `MEDIUM`, `HIGH`], `status` [`TODO`, `IN_PROGRESS`, `BLOCKED`, `CANCELED`,`DONE`], progress of steps [x/n] , title, description, emoji based on status ['🔥', '⏳', '🧱', '❌', '✅']
+  - Format: `[TASK-ID][Priority][STATUS][PROGRESS] Title - Description` [emoji], don't break lines.
+  - Example:
+  ```markdown
+  [TASK-001][HIGH][DONE][1/1] Project Setup - Set up the project management structure according to the Cognition Workflow Framework ✅
+  [TASK-002][MEDIUM][TODO][0/3] Add API Documentation - Implement OpenAPI/Swagger documentation for all endpoints 🔥
+  [TASK-003][MEDIUM][IN_PROGRESS][1/2] Implement Health Check Endpoints - Add comprehensive health check endpoints for monitoring ⏳
+  ```
+
+### Task Management Legend
+**Priority Levels**:
+- `LOW` - Tasks that would be nice to have but aren't critical to project functionality
+- `MEDIUM` - Important tasks that should be completed but aren't blocking other work
+- `HIGH` - Critical tasks that are essential or blocking other work
+
+**Status Options**:
+- `TODO` - Task has been identified but work has not yet started
+- `IN_PROGRESS` - Work on the task has begun but is not yet complete
+- `BLOCKED` - Task cannot proceed due to dependencies or obstacles
+- `CANCELED` - Task has been abandoned or is no longer needed
+- `DONE` - Task has been completed successfully
+
+**Progress Format**:
+- `[completed/total]` - Shows how many substeps have been completed out of the total
+- Example: `[2/5]` means 2 out of 5 substeps are complete
+
+**Task Template**
+```markdown
+[TASK-XXX][PRIORITY][STATUS][PROGRESS] Title - Description [EMOJI]
+```
+
+**Emoji Legend**:
+- 🔥 TODO - Task is ready to be worked on
+- ⏳ IN_PROGRESS - Task is currently being worked on
+- 🧱 BLOCKED - Task is blocked by dependencies or issues
+- ❌ CANCELED - Task has been canceled or abandoned
+- ✅ DONE - Task has been completed successfully
+
+  - **Task Granularity**: Tasks in the backlog should ideally be actionable items. If a task is very large or high-level (e.g., "Build entire user authentication system"), it should be broken down into a `task_{id}.md` file with detailed substeps during `[MODE: PLAN]`. Individual substeps become the trackable units of work.
+  - **Dependencies Between Sprints/Tasks**: If a task depends on another, note this in its description (e.g., "Depends on TASK-XXX"). The backlog should be reviewed for such dependencies when planning sprints.
+
+**Complex Task Decomposition with Reasoning in Sprint and Steps**:
+- Before implementing any complex change, ALWAYS decompose it into a task file with steps!
+- Create a sprint folder for active task groups: `.cursor/tasks/sprint_{n}/`
+- For each complex task:
+  - Create a task file: `.cursor/tasks/sprint_{n}/task_{id}.md`
+  - Identify the primary reasoning mode(s) needed
+  - Add dependencies between steps when applicable
+  - Break down into atomic steps with clear completion criteria
+  - Assign status to each substep: `TODO`, `IN_PROGRESS`, `BLOCKED`, `CANCELED`, `DONE`
+  - Assign complexity to each substep: `VERY_LOW`, `LOW`, `MEDIUM`, `HIGH`, `VERY_HIGH`
+  - Add an optional estimated effort/time for each substep (e.g., `Estimated Effort: 2h`).
+  - Add to substeps a description and an emoji based on status ['🔥' for TODO, '⏳' for IN_PROGRESS, '🧱' for BLOCKED, '❌' for CANCELED, '✅' for DONE]
+  - Format: - Description [emoji]
+    - example:
+    ```markdown
+    - Create all required directories in `.cursor/` 🔥
+    - Create `.cursor/overview/summary.md` with project details ✅
+    ```
+  - Record timestamps for task lifecycle metrics (created, started, completed)
+- Example structure:
+  ```markdown
+  # Task: Implement User Authentication
+
+  **Created**: `[YYYY-MM-DDTHH:MM:SSZ]`
+  **Priority**: HIGH
+  **Status**: IN_PROGRESS
+  **Dependencies**: [TASK-XXX, TASK-YYY]
+  **Estimated Total Effort**: (Sum of substep estimates, optional)
+  **Reasoning Mode**: Procedural, Security-focused
+
+  ## Substep 1: Database Schema Design ✅ [DONE]
+  **Created**: `[YYYY-MM-DDTHH:MM:SSZ]`
+  **Started**: `[YYYY-MM-DDTHH:MM:SSZ]`
+  **Completed**: `[YYYY-MM-DDTHH:MM:SSZ]`
+  **Time in Progress**: 19h 30m
+  **Estimated Effort**: 4h
+  **Reasoning Mode**: Deductive, Structural
+
+  - Create users table with appropriate fields ✅
+  - Implement password hashing strategy ✅
+
+  ## Substep 2: API Endpoints 🔥 [IN_PROGRESS]
+  **Created**: `[YYYY-MM-DDTHH:MM:SSZ]`
+  **Started**: `[YYYY-MM-DDTHH:MM:SSZ]`
+  **Time in Backlog**: 24h
+  **Time in Progress**: Ongoing
+  **Estimated Effort**: 8h
+  **Reasoning Mode**: Procedural, Security-focused
+
+  - Create /login endpoint with validation 🔥
+  - Create /register endpoint with validation 🔥
+  - Create /password-reset endpoints 🔥
+
+  ## Substep 3: Testing ☑️ [TODO]
+  **Created**: `[YYYY-MM-DDTHH:MM:SSZ]`
+  **Time in Backlog**: Ongoing
+  **Estimated Effort**: 6h
+  **Reasoning Mode**: Skeptical, Edge-case focused
+
+  - Write unit tests for auth service ☑️
+  - Write integration tests for endpoints ☑️
+  - Test edge cases and security vulnerabilities ☑️
+
+  ## Design Decisions
+  - Selected JWT over sessions for stateless architecture (Contrastive reasoning)
+  - Implemented refresh token rotation for enhanced security (Security reasoning)
+  - Simplified password reset flow to reduce user friction (Simplicity principle)
+  ```
+
+## Persistent Memory System
+- Maintain memory records at `.cursor/memory/` to preserve context across sessions
+- Create and update the following memory files:
+  - `.cursor/memory/insights.md`: Record key decisions and their rationales before and after any task
+    - **Suggested Format for Insights**:
+      ```markdown
+      ## `[YYYY-MM-DDTHH:MM:SSZ]` [Insight Title/Topic]
+      **Decision**: [Specific decision made]
+      **Alternatives Considered**: [Briefly list other options evaluated, if any]
+      **Rationale**: [Reasoning behind the decision. Link to core thinking principles if applicable.]
+      **Category**: [e.g., Architecture, Security, Performance, Refactoring]
+      **Tags**: #[tag1], #[tag2]
+      ```
+  - `.cursor/memory/errors.md`: Track encountered errors and their solutions
+- Format memory entries with timestamps, categories, and tags for searchability
+- Example:
+  ```markdown
+  ## `[YYYY-MM-DDTHH:MM:SSZ]` Authentication Pattern
+  **Category**: Security
+  **Tags**: #auth, #security, #jwt
+
+  Using JWT for stateless authentication with short expiry tokens (15m) and
+  longer-lived refresh tokens (7d) stored in HttpOnly cookies.
+
+  **Rationale**: Balances security and user experience while minimizing database load.
+  ```
+
+## Error Tracking System
+- Automatically track all errors in `.cursor/memory/errors.md`
+- For each error encountered:
+  - Record error type, message, and stack trace (if available)
+  - Document the context in which the error occurred
+  - Track solution or workaround applied
+  - Add a `Status`: `[OPEN]`, `[RESOLVED]`, `[MONITORING]`
+- For recurring errors (same error occurs 2+ times):
+  - Escalate priority and highlight pattern
+  - Suggest preventative measures (e.g., validation, type checking, tests)
+  - Create a rule draft if pattern is generalizable
+- Example:
+  ```markdown
+  ## [ERROR-023] TypeError: Cannot read property 'id' of undefined
+  **Timestamp**: `[YYYY-MM-DDTHH:MM:SSZ]`
+  **Error Type**: TypeScript Error
+  **Module**: Auth
+  **Occurrences**: 3 (2023-10-22, 2023-10-23, 2023-10-24)
+  **Context**: User profile page when user is not authenticated
+  **Root Cause**: Missing null check before accessing user.id
+  **Solution**: Added null/undefined check before accessing properties
+  **Status**: `[RESOLVED]`
+  **Prevention**: Implemented input validation middleware for all authenticated routes
+  ```
+
+## Stack Monitoring
+- **Location:** `.cursor/overview/stacks.md`
+- **Behavior:**
+  - Maintain a list of supported tech stacks (e.g., Node.js, TypeScript)
+  - For each stack component, track:
+    - Version
+    - Key dependencies
+    - Configuration files
+    - Documentation links
+  - On detecting a stack change (e.g., Node.js → Deno), prompt the user to confirm adding or updating the documentation
+  - Apply contrastive reasoning to evaluate pros/cons of technology choices
+  - Example format:
+    ```markdown
+    ## [Node.js] v16.14.2
+    **Config Files**: package.json, .nvmrc, tsconfig.json
+    **Key Dependencies**: express@4.18.1, prisma@4.3.1, zod@3.19.1
+    **Documentation**: @Node.js Docs
+    **Last Updated**: `[YYYY-MM-DDTHH:MM:SSZ]`
+    **Reasoning**: Selected for compatibility with existing tooling and team expertise
+    ```
+
+## Dynamic File-Scope map Index
+- **Location:** `.cursor/memory/map.json`
+- **Behavior:**
+  - Auto-generate a JSON inde mapping:
+    - API routes → file paths
+    - Key packages (jwt, zod, etc.) → import locations
+    - Component definitions → file locations
+  - Update on file creation, renaming, deletion, or after significant refactoring that changes import locations or key component definitions even if file names remain the same.
+  - *Note: The definition of 'key packages' or 'component definitions' to be indexed can be iteratively refined based on project needs or common usage patterns. This helps maintain a balance between comprehensiveness and conciseness in the `map.json` file. Consider heuristics like import frequency or explicit tagging.*
+  - Example structure:
+    ```json
+    {
+      "api_routes": {
+        "/api/users": "src/routes/users.ts",
+        "/api/auth/login": "src/routes/auth.ts"
+      },
+      "imports": {
+        "jwt": ["src/utils/auth.ts", "src/middleware/protect.ts"],
+        "zod": ["src/schemas/user.ts", "src/validators/input.ts"]
+      },
+      "components": {
+        "UserProfile": "src/components/UserProfile.tsx",
+        "LoginForm": "src/components/auth/LoginForm.tsx"
+      }
+    }
+    ```
+
+## Guidelines
+- **Location:** `[.cursor/memory/docs/[stack.md]](mdc:.cursor/memory/docs/[stack.md])`
+- **Behavior:**
+  - For each key technology stack actively used in or highly relevant to the current project, create a guideline document with the best practices.
+  - Check a least 2 sources
+  - Avoid conflicting instructions and practices. If sources conflict, prioritize official documentation or the most current authoritative source. Document the conflict and the chosen approach with rationale in the guideline document itself.
+  - Add some code examples
+  - Add the url referencies
+  - Add the official documentations link
+  - **Review and Update**: Periodically (e.g., quarterly, or when a major version of a stack component is adopted) review and update these guideline documents to ensure they reflect current best practices and project needs.
+
+## Cross-Project Learning
+- **Location**: `.cursor/memory/portable_insights.md`
+- **Purpose**: Create a curated collection of high-value, project-agnostic learnings
+- **Process**:
+  1. During `[MODE: REVIEW]`, tag insights with `#portable` when they represent generalizable knowledge
+  2. Periodically extract these into pattern categories like architectural decisions, testing strategies, or performance optimizations
+  3. Include them as brief "wisdom notes" before starting similar tasks in new projects
+
+## Documentation Update Protocol
+- For each completed feature or significant change, evaluate impact on:
+  - README.md and other user-facing documentation
+  - API documentation (e.g., OpenAPI specs, JSDoc)
+  - Architecture diagrams or technical documentation
+- Create documentation update tasks with priority relative to the feature's visibility and impact
+- For public APIs or user-facing features, treat documentation as a required deliverable within the same task
+
+## Performance Monitoring
+- **Location**: `.cursor/memory/performance.md`
+- **Purpose**: Track performance baselines, changes, and regressions
+- **Process**:
+  1. For performance-critical components, document baseline metrics before changes
+  2. Record performance impact (positive or negative) of implementations
+  3. Flag significant regressions for immediate attention
+  4. Note optimization patterns that proved effective for future reference
+
+## AI-Human Collaboration Patterns
+- **Context Setting**: User provides business context, requirements, and domain knowledge
+- **Architectural Guidance**: User approves architectural decisions while AI proposes options
+- **Implementation**: AI handles initial implementation while user reviews and adjusts
+- **Review**: Both participants actively review code with complementary perspectives
+  - AI: Consistency, best practices, potential bugs, optimization opportunities
+  - User: Business logic correctness, edge cases from domain knowledge, strategic direction
+- **Learning**: Both learn from the interaction—human learns technical patterns, AI learns domain context
+
+## Datetime
+- **Behavior**: When recording timestamps for tasks, memory entries, etc., use the ISO 8601 format as a reference: `YYYY-MM-DDTHH:MM:SSZ`. Ensure the 'Z' is included to denote UTC.
+  - This format (`YYYY-MM-DDTHH:MM:SSZ`, e.g., `2025-05-08T16:51:00Z`) is the **primary standard** for precise event logging, such as in `errors.md`, `insights.md`, detailed task lifecycle events (start/completion times of substeps), and any situation where exact timing and timezone context (UTC) are critical.
+- **Date-Only Format**: For contexts where only the date is required (e.g., daily summaries, high-level task creation dates if time is not critical, naming daily log files, or sprint start/end dates), the format `YYYY-MM-DD` (e.g., `2025-05-08`) is acceptable.
+  - When using `YYYY-MM-DD`, it should ideally represent the UTC date to maintain consistency, unless a local date is explicitly required by the user and its context is clearly noted.
+- **Fetching Current Datetime**:
+  - The AI **must** attempt to obtain the current date and time using its available tools or system capabilities whenever a live timestamp is required.
+  - All timestamps should be generated in **UTC** by default to ensure consistency across the project and avoid timezone ambiguities.
+  - **Fallback**: In the rare event that the AI cannot reliably fetch the current time, it must:
+    1. Inform the user of this inability.
+    2. Use a clearly marked placeholder (e.g., `[TIMESTAMP_UNAVAILABLE_YYYY-MM-DDTHH:MM:SSZ]` or `[DATE_UNAVAILABLE_YYYY-MM-DD]`).
+    3. Request the user to provide the correct timestamp if precision for that entry is critical. This fallback should be an exception, not the norm.
+- The AI should use these formats consistently when generating content that includes timestamps or dates.
+
+**See Also**
+- [riper-cognition-workflow.mdc](mdc:.cursor/rules/riper-cognition-workflow.mdc)

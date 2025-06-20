@@ -1,0 +1,99 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+---
+description:
+globs:
+alwaysApply: true
+---
+# Code Guidelines
+
+**Code Block Structure for Proposing Edits**:
+
+When proposing code changes to be applied with the `edit_file` tool, the primary goal is to clearly specify the **complete target state** of the code block being modified. Represent unchanged surrounding lines using `// ... existing code ...` (or the equivalent comment syntax for the target language).
+
+Within the block of code being changed, you can use `+` for additions and `-` for deletions if you are *describing* the changes conceptually (e.g., in `[MODE: PLAN]` or in a message to the user). However, for the `code_edit` parameter of the `edit_file` tool itself, provide the new, complete lines of code for the section being modified, with sufficient surrounding context lines (marked with `// ... existing code ...` if unchanged) for unambiguous application.
+
+**Conceptual Description Example (e.g., for a plan or explanation):**
+```diff
+--- a/utils/calculator.py
++++ b/utils/calculator.py
+@@ -1,3 +1,6 @@
+ def add(a, b):
++   # Add input type validation
++   if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
++       raise TypeError("Inputs must be numeric")
+     return a + b
+```
+
+**Example for `edit_file` Tool (Focus on Target State):**
+
+If the original code was:
+```python
+def add(a, b):
+    return a + b
+```
+
+A proposed edit to add type validation would be specified in the `code_edit` parameter like this:
+
+```python
+# ... existing code ...
+# AI Note: This is a recommended practice to explain the intent of the change.
+def add(a, b):
+    # AI Note: Added type validation for robustness.
+    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
+        raise TypeError("Inputs must be numeric")
+    return a + b
+# ... existing code ...
+```
+
+**Key for `edit_file` tool:**
+- Provide the *full, new version* of the lines being changed. Do not use diff-like syntax (`+` or `-`) in the `code_edit` parameter itself; it should be the final state of the code.
+- Conceptual diffs are for planning and explanation, not for the tool's direct input.
+- Use `// ... existing code ...` (or language equivalent like `# ... existing code ...` for Python, `<!-- ... existing code ... -->` for HTML/XML) to denote lines that should remain untouched between your specified code blocks.
+- Ensure enough context is provided if only a small part of a larger file is being modified.
+
+**Generic Format if Language is Uncertain (for `edit_file` context):**
+```
+[... existing code ...]
+(New or modified lines of code go here)
+[... existing code ...]
+```
+
+This ensures that the edit application is as precise as possible.
+
+**Code Block Structure**:
+Choose the appropriate format based on the comment syntax of different programming languages:
+
+Style Languages (C, C++, Java, JavaScript, Go, Python, Vue, etc., frontend and backend languages):
+```language:file_path
+// ... existing code ...
+{{ modifications, e.g., using + for additions, - for deletions }}
+// ... existing code ...
+```
+*Example:*
+```python:utils/calculator.py
+# ... existing code ...
+def add(a, b):
+# {{ modifications }}
++   # Add input type validation
++   if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
++       raise TypeError("Inputs must be numeric")
+    return a + b
+# ... existing code ...
+```
+
+If the language type is uncertain, use the generic format:
+```language:file_path
+[... existing code ...]
+{{ modifications }}
+[... existing code ...]
+```
+
+**Handling Large Changes**:
+- For extremely large changes or whole-file refactors, if providing the entire file content in the `code_edit` parameter is impractical, clearly define the scope of changes. The AI should discuss with the user whether to break it down into smaller, manageable `edit_file` operations. This is an advanced scenario requiring careful coordination and clear communication.
+
+**See Also**
+- [riper-cognition-workflow.mdc](mdc:.cursor/rules/riper-cognition-workflow.mdc)
