@@ -36,7 +36,7 @@ class GetTaskInput(BaseModel):
 
 
 # MCP Server
-mcp = FastMCP("task-mcp-server")
+mcp = FastMCP("task-mcp-server", port=8080)
 
 
 @mcp.tool("get-tasks", description="List all tasks.")
@@ -76,4 +76,4 @@ async def update_task(input: UpdateTaskInput) -> dict[str, Task | None]:
 
 # Entrypoint
 if __name__ == "__main__":
-    mcp.run(transport="stdio")
+    mcp.run(transport="streamable-http")
